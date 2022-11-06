@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{e1df537e-9f5a-4f8a-b24a-6a5f69ee37ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\cpu">
+      <UniqueIdentifier>{900b7db9-1ab3-45f6-baa8-3cd85ff5be37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\tinyasm">
+      <UniqueIdentifier>{d0d7dade-34a1-459d-b745-8e7ed378b80d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\cpu\cpu.cpp">
+      <Filter>Source\cpu</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\cpu\cpu.hpp">
+      <Filter>Source\cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\tinyasm\tinyasm.hpp">
+      <Filter>Source\tinyasm</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
