@@ -14,6 +14,7 @@ namespace tasm
         MOV,
         JMP,
         JNZ,
+        JZ,
         PUSH,
         POP,
         CALL,

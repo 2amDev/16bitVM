@@ -1,5 +1,10 @@
 #include "cpu.hpp"
 
+#ifdef DEBUG16BITVM
+#include <iostream>
+#include <string>
+#endif 
+
 void cpu::execute(tasm::ins& ins)
 {
     auto move_value_of_into_reg = [&](_r r_type, int8_t x) {
@@ -65,6 +70,56 @@ void cpu::execute(tasm::ins& ins)
             break;
         }
         break;
+    case tasm::op::JMP:
+        /* choose if relative or absolute jmp */
+        r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+        return;
+    case tasm::op::JNZ:
+        if (r[ROP])
+        {
+            r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+            return;
+        }
+        break;
+    case tasm::op::JZ:
+        if (!r[ROP])
+        {
+            r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+            return;
+        }
+        break;
+    case tasm::op::PUSH:
+        move_value_of_into_reg(A, 0);
+        stack[r[SP]] = r[A];
+        r[SP]++;
+        break;
+    case tasm::op::POP:
+        r[SP]--;
+        break;
+    case tasm::op::CALL:
+        stack[r[SP]] = r[FP];
+        r[SP]++;
+        r[FP] = r[SP];
+        r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+        break;
+    case tasm::op::RET:
+        r[SP] = r[FP];
+        r[FP] = r[r[FP] - 1];
+        break;
     }
+    r[IP]++;
+}
 
+
+void cpu::debug_info()
+{
+#ifdef DEBUG16BITVM
+    r[SP] = 50;
+    int64_t stack_printf_start = r[SP] <= 10 ? 0 : r[SP] - 10;
+    printf("\nSTACK:");
+    for (int64_t i = stack_printf_start; i < r[SP] + 10; i++)
+    {
+        i == r[SP] ? printf("\nstack[%i] = %i <--- STACK POINTER", i, stack[i]) : printf("\nstack[%i] = %i", i, stack[i]);
+    }
+#endif                  
 }

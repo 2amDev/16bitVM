@@ -4,24 +4,38 @@
     <Filter Include="Source">
       <UniqueIdentifier>{e1df537e-9f5a-4f8a-b24a-6a5f69ee37ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\cpu">
+    <Filter Include="Source\demo">
+      <UniqueIdentifier>{47356465-c1e9-44b8-8886-89c8c955688a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\vm">
+      <UniqueIdentifier>{ac424928-b632-47bd-a2af-66c957966aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\vm\cpu">
       <UniqueIdentifier>{900b7db9-1ab3-45f6-baa8-3cd85ff5be37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\tinyasm">
+    <Filter Include="Source\vm\tinyasm">
       <UniqueIdentifier>{d0d7dade-34a1-459d-b745-8e7ed378b80d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\cpu\cpu.cpp">
-      <Filter>Source\cpu</Filter>
+      <Filter>Source\vm\cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source\demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\cpu\cpu.hpp">
-      <Filter>Source\cpu</Filter>
+      <Filter>Source\vm\cpu</Filter>
     </ClInclude>
     <ClInclude Include="Source\tinyasm\tinyasm.hpp">
-      <Filter>Source\tinyasm</Filter>
+      <Filter>Source\vm\tinyasm</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\example.ta">
+      <Filter>Source\demo</Filter>
+    </None>
   </ItemGroup>
 </Project>
