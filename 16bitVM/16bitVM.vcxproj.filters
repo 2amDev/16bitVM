@@ -16,6 +16,9 @@
     <Filter Include="Source\vm\tinyasm">
       <UniqueIdentifier>{d0d7dade-34a1-459d-b745-8e7ed378b80d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\vm\tinyasm\assembler">
+      <UniqueIdentifier>{6d7d1bfc-89ab-4f80-be79-49ce42b7f59f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\cpu\cpu.cpp">
@@ -24,6 +27,9 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source\demo</Filter>
     </ClCompile>
+    <ClCompile Include="Source\tinyasm\assembler\assembler.cpp">
+      <Filter>Source\vm\tinyasm\assembler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\cpu\cpu.hpp">
@@ -31,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="Source\tinyasm\tinyasm.hpp">
       <Filter>Source\vm\tinyasm</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\tinyasm\assembler\assembler.hpp">
+      <Filter>Source\vm\tinyasm\assembler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,9 +3,40 @@
 #ifdef DEBUG16BITVM
 #include <iostream>
 #include <string>
+#include <map>
+
+namespace
+{
+    std::map<std::string, tasm::op> opcode_name_to_enum =
+    {
+        {"NOP",  tasm::op::NOP},
+        {"ADD",  tasm::op::ADD},
+        {"SUB",  tasm::op::SUB},
+        {"MULT", tasm::op::MULT},
+        {"CMP",  tasm::op::CMP},
+        {"MOV",  tasm::op::MOV},
+        {"JMP",  tasm::op::JMP},
+        {"JNZ",  tasm::op::JNZ},
+        {"JZ",   tasm::op::JZ},
+        {"PUSH", tasm::op::PUSH},
+        {"POP",  tasm::op::POP},
+        {"CALL", tasm::op::CALL},
+        {"RET",  tasm::op::RET}
+    };
+}
 #endif 
 
-void cpu::execute(tasm::ins& ins)
+void cpu::execute_all(int16_t start_ip)
+{
+    r[IP] = start_ip;
+    while (!r[EF])
+    {
+        single_step(txt[r[IP]]);
+    }
+    debug_info();
+} 
+
+void cpu::single_step(tasm::ins& ins)
 {
     auto move_value_of_into_reg = [&](_r r_type, int8_t x) {
         switch (ins.cf[x])
@@ -101,25 +132,34 @@ void cpu::execute(tasm::ins& ins)
         r[SP]++;
         r[FP] = r[SP];
         r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
-        break;
+        return;
     case tasm::op::RET:
         r[SP] = r[FP];
         r[FP] = r[r[FP] - 1];
+        break;
+    case tasm::op::INT3:
+        r[EF] = 1;
         break;
     }
     r[IP]++;
 }
 
-
 void cpu::debug_info()
 {
 #ifdef DEBUG16BITVM
-    r[SP] = 50;
     int64_t stack_printf_start = r[SP] <= 10 ? 0 : r[SP] - 10;
-    printf("\nSTACK:");
+    printf("\nstack view:");
     for (int64_t i = stack_printf_start; i < r[SP] + 10; i++)
     {
-        i == r[SP] ? printf("\nstack[%i] = %i <--- STACK POINTER", i, stack[i]) : printf("\nstack[%i] = %i", i, stack[i]);
+        std::string additional_buffer = "\nstack[%i] ";
+        for (int j = std::to_string(i).length(); j <= 2; j++)
+            additional_buffer += " ";
+        additional_buffer += "= %i";
+        if (i == r[SP])
+            additional_buffer += " <------ SP";
+        if (i == r[FP])
+            additional_buffer += " <------ FP";
+        printf(additional_buffer.c_str(), i, stack[i]);
     }
 #endif                  
 }

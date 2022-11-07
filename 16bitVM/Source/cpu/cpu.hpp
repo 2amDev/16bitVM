@@ -16,10 +16,11 @@ public:
     int16_t    stack[MAX_STACK_SIZE] = { 0 };
     tasm::ins  txt[MAX_TXT_SIZE];
 
-    enum _r { IP, SP, FP, ROP, A, B, C, D };
+    enum _r { IP, SP, FP, ROP, EF, A, B, C };
     int16_t r[8] = { 0 };
 
 
-    void execute(tasm::ins& ins);
+    void single_step(tasm::ins& ins);
+    void execute_all(int16_t start_ip);
     void debug_info();
 };

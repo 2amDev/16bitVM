@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="Source\cpu\cpu.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\tinyasm\assembler\assembler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\cpu\cpu.hpp" />
+    <ClInclude Include="Source\tinyasm\assembler\assembler.hpp" />
     <ClInclude Include="Source\tinyasm\tinyasm.hpp" />
   </ItemGroup>
   <ItemGroup>

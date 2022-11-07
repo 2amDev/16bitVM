@@ -4,6 +4,7 @@
 
 namespace tasm
 {
+
     enum op
     {
         NOP,
@@ -18,7 +19,8 @@ namespace tasm
         PUSH,
         POP,
         CALL,
-        RET
+        RET,
+        INT3
     };
 
     /* Used in an instruction to say if the corresponding int16_t is to be used as itself, correspond to a register, is a pointer to an object type,
