@@ -39,49 +39,48 @@ tasm::ins assemble::single(std::string single_instruction)
 	std::string opcode_as_string = single_instruction.substr(0, single_instruction.find(' '));
 	interpreted.opcode = opcode_name_to_enum[opcode_as_string];
 
-    switch (interpreted.opcode)
-    {
-    case tasm::op::NOP:
-        break;
-    case tasm::op::ADD:
-    case tasm::op::SUB:
-    case tasm::op::MULT:
-    case tasm::op::CMP:
-    case tasm::op::MOV:
+	switch (interpreted.opcode)
+	{
+	case tasm::op::NOP:
+		break;
+	case tasm::op::ADD:
+	case tasm::op::SUB:
+	case tasm::op::MULT:
+	case tasm::op::CMP:
+	case tasm::op::MOV:
 		interpreted.cf[0] = char_to_cntr_flag[single_instruction[single_instruction.find(' ') + 1]];
 		interpreted.cf[1] = char_to_cntr_flag[single_instruction[single_instruction.find(',') + 2]];
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.find(',') - (single_instruction.find(' ') + 2)));
 		interpreted.v[1] = std::stoi(single_instruction.substr(single_instruction.find(',') + 3, single_instruction.size() - (single_instruction.find(',') + 2)));
-        break;
-    case tasm::op::JMP:
-    case tasm::op::JNZ:
-    case tasm::op::JZ:
+		break;
+	case tasm::op::JMP:
+	case tasm::op::JNZ:
+	case tasm::op::JZ:
 		interpreted.cf[0] = (tasm::cntr)(single_instruction[single_instruction.find(' ') + 1] == 'a');
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.size() - (single_instruction.find(' ') + 2)));
-        break;
-    case tasm::op::PUSH:
+		break;
+	case tasm::op::PUSH:
 		interpreted.cf[0] = char_to_cntr_flag[single_instruction[single_instruction.find(' ') + 1]];
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.size() - (single_instruction.find(' ') + 2)));
-        break;
-    case tasm::op::POP:
-        break;
-    case tasm::op::CALL:
+		break;
+	case tasm::op::POP:
+		break;
+	case tasm::op::CALL:
 		interpreted.cf[0] = (tasm::cntr)(single_instruction[single_instruction.find(' ') + 1] == 'a');
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.size() - (single_instruction.find(' ') + 2)));
-        break;
+		break;
 	case tasm::op::RET:
-        break;
+		break;
 	case tasm::op::INT3:
 		break;
-    }
-		
+	}
+
 	return interpreted;
 }
 std::vector<tasm::ins> assemble::buffer(std::string series_instruction)
 {
 	std::vector<tasm::ins> interpreted_buffer;
 
-	int16_t IP = 0;
 	for (int i = 0; series_instruction[i] != '\0'; i++)
 	{
 		std::string current_instruction;
@@ -97,8 +96,8 @@ std::vector<tasm::ins> assemble::buffer(std::string series_instruction)
 				break;
 			}
 		}
-		IP++;
-		interpreted_buffer.push_back(assemble::single(current_instruction));
+		if(!current_instruction.empty())
+			interpreted_buffer.push_back(assemble::single(current_instruction));
 	}
 
 	return interpreted_buffer;

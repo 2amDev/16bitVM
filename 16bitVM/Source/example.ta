@@ -1,17 +1,19 @@
 PUSH i3;
 PUSH i4;
-NOP;
+NOP; /* filler just to space stuff out */
 NOP;
 PUSH f0;
 PUSH f1;
-CALL r7;
+CALL r10;
+POP; 
+POP;
 PUSH r3;
 INT3;
+NOP; /* filler just to space stuff out */
 NOP;
 NOP;
 NOP;
-NOP;
-NOP;
-MULT f-3, f-4;
+NOP; 
+MULT f-2, f-3;
 MULT r3, i2;
 RET;

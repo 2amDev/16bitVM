@@ -15,7 +15,7 @@ public:
     int16_t    heap[MAX_HEAP_SIZE]   = { 0 };
     int16_t    stack[MAX_STACK_SIZE] = { 0 };
     tasm::ins  txt[MAX_TXT_SIZE];
-
+    
     enum _r { IP, SP, FP, ROP, EF, A, B, C };
     int16_t r[8] = { 0 };
 
