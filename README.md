@@ -27,3 +27,44 @@ void cpu::execute_all(int16_t start_ip)
     debug_info();
 } 
 ```
+
+Example pseudocode:
+```cpp
+ void main()
+{
+	int x = 3;
+	int y = 4;
+	int z = multiply_togheter_then_by_two(x, y);
+	/* BREAKPOINT HERE */
+}
+
+
+int multiply_togheter_then_by_two(int a, int b)
+{
+	return (a * b) * 2;
+}
+```
+
+Converted to tinyasm and ready to execute
+```
+PUSH i3;
+PUSH i4;
+NOP;
+NOP;
+PUSH f0;
+PUSH f1;
+CALL r10;
+POP;
+POP;
+PUSH r3;
+INT3;
+NOP;
+NOP;
+NOP;
+NOP;
+NOP;
+MULT f-2, f-3;
+MULT r3, i2;
+RET;
+```
+
