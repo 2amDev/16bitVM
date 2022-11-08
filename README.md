@@ -4,7 +4,7 @@ seemed easier to work with. Uses a homebrewed assembly-esque language "tinyasm.h
 Uses fixed width instructions and currently lacks any proper memory management structure. 
 
 -  `"../Source/tinyasm/tinyasm.hpp" `
-  Basic instruction structure, TODO : add docs and explain instruction structure
+  Basic instruction structure, TODO : add docs
 -  `"../Source/tinyasm/assembler/assembler.cpp `
   Assembles an instruction file into the bytecode
 -  `"../Source/cpu/cpu.cpp" > void cpu::single_step(tasm::ins& ins); `
