@@ -142,7 +142,7 @@ void cpu::single_step(tasm::ins& ins)
         r[SP] = r[FP];
         r[IP] = stack[r[FP] - 2];
         r[FP] = stack[r[FP] - 1];
-        retur
+        return;
     case tasm::op::INT3:
         r[EF] = 1;
         break;
