@@ -13,20 +13,7 @@ Uses fixed width instructions and currently lacks any proper memory management s
   Executes a single instruction and INCREMENTS IP.
   -  `"../Source/cpu/cpu.cpp" > void cpu::execute_all(int16_t start_ip); `
   Executes a buffer of instructions from the .txt section ( which is currently still contained in the CPU class due to lack of full structure )
-   from the instruction pointer it's called with. Incredibly simple and just repeatedly single steps the cpu, looks as follows : 
-   
-```cpp
-void cpu::execute_all(int16_t start_ip)
-{
-    r[IP] = start_ip;
-    while (!r[EF])
-    {
-        single_step(txt[r[IP]]);
-    }
-
-    debug_info();
-} 
-```
+   from the instruction pointer it's called with. Simply repeatedly single steps the cpu untill an exception is raised. 
 
 Example pseudocode:
 ```cpp
