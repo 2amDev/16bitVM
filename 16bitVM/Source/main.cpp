@@ -11,7 +11,7 @@ int main()
 
     cpu CPU;
 
-    std::vector<tasm::ins> ins_buffer = assemble::file("C:\\Users\\user\\Desktop\\16bitVM\\16bitVM\\Source\\example.ta");
+    std::vector<tasm::ins> ins_buffer = assemble::file("example.ta");
 
     for (int i = 0; i < ins_buffer.size(); i++)
         CPU.txt[i] = ins_buffer[i];
