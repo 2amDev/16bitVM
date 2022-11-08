@@ -3,17 +3,18 @@ There's no particular reason for this "VM" to be 16-bit, as you could just as ea
 seemed easier to work with. Uses a homebrewed assembly-esque language "tinyasm.hpp" which gets compiled into bytecode before getting executed.
 Uses fixed width instructions and currently lacks any proper memory management structure. 
 
-- "../Source/tinyasm/tinyasm.hpp"
+-  `"../Source/tinyasm/tinyasm.hpp" `
   Basic instruction structure, TODO : add docs and explain instruction structure
-- "../Source/tinyasm/assembler/assembler.hpp & assembler.cpp
+-  `"../Source/tinyasm/assembler/assembler.cpp `
   Assembles an instruction file into the bytecode
-- "../Source/cpu/cpu.cpp" > void cpu::single_step(tasm::ins& ins);
+-  `"../Source/cpu/cpu.cpp" > void cpu::single_step(tasm::ins& ins); `
   Executes a single instruction
-  - "../Source/cpu/cpu.cpp" > void cpu::single_step(tasm::ins& ins);
+  -  `"../Source/cpu/cpu.cpp" > void cpu::single_step(tasm::ins& ins); `
   Executes a single instruction and INCREMENTS IP.
-  - "../Source/cpu/cpu.cpp" > void cpu::execute_all(int16_t start_ip);
+  -  `"../Source/cpu/cpu.cpp" > void cpu::execute_all(int16_t start_ip); `
   Executes a buffer of instructions from the .txt section ( which is currently still contained in the CPU class due to lack of full structure )
    from the instruction pointer it's called with. Incredibly simple and just repeatedly single steps the cpu, looks as follows : 
+   
 ```cpp
 void cpu::execute_all(int16_t start_ip)
 {
