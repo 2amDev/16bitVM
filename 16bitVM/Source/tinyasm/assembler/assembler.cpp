@@ -60,6 +60,7 @@ tasm::ins assemble::single(std::string single_instruction)
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.size() - (single_instruction.find(' ') + 2)));
         break;
     case tasm::op::PUSH:
+		interpreted.cf[0] = char_to_cntr_flag[single_instruction[single_instruction.find(' ') + 1]];
 		interpreted.v[0] = std::stoi(single_instruction.substr(single_instruction.find(' ') + 2, single_instruction.size() - (single_instruction.find(' ') + 2)));
         break;
     case tasm::op::POP:

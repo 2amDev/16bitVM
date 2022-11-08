@@ -33,11 +33,15 @@ void cpu::execute_all(int16_t start_ip)
     {
         single_step(txt[r[IP]]);
     }
+
     debug_info();
 } 
 
 void cpu::single_step(tasm::ins& ins)
 {
+
+    int bp = 0;
+
     auto move_value_of_into_reg = [&](_r r_type, int8_t x) {
         switch (ins.cf[x])
         {
@@ -76,7 +80,7 @@ void cpu::single_step(tasm::ins& ins)
     case tasm::op::MULT:
         move_value_of_into_reg(A, 0);
         move_value_of_into_reg(B, 1);
-        r[ROP] = r[A] + r[B];
+        r[ROP] = r[A] * r[B];
         break;
     case tasm::op::CMP:
         move_value_of_into_reg(A, 0);
@@ -103,19 +107,19 @@ void cpu::single_step(tasm::ins& ins)
         break;
     case tasm::op::JMP:
         /* choose if relative or absolute jmp */
-        r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+        r[IP] = ins.cf[0] ? ins.v[0] : r[IP] + ins.v[0];
         return;
     case tasm::op::JNZ:
         if (r[ROP])
         {
-            r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+            r[IP] = ins.cf[0] ? ins.v[0] : r[IP] + ins.v[0];
             return;
         }
         break;
     case tasm::op::JZ:
         if (!r[ROP])
         {
-            r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+            r[IP] = ins.cf[0] ? ins.v[0] : r[IP] + ins.v[0];
             return;
         }
         break;
@@ -128,14 +132,17 @@ void cpu::single_step(tasm::ins& ins)
         r[SP]--;
         break;
     case tasm::op::CALL:
-        stack[r[SP]] = r[FP];
-        r[SP]++;
+        stack[r[SP]] = r[IP];
+        stack[r[SP] + 1] = r[FP];
+        r[SP] += 2;
         r[FP] = r[SP];
-        r[IP] = ins.cf[0] ? ins.v[0] : stack[IP] + ins.v[0];
+        r[IP] = ins.cf[0] ? ins.v[0] : r[IP] + ins.v[0];
+        bp += 5;
         return;
     case tasm::op::RET:
         r[SP] = r[FP];
-        r[FP] = r[r[FP] - 1];
+        r[IP] = stack[r[FP] - 2];
+        r[FP] = stack[r[FP] - 1];
         break;
     case tasm::op::INT3:
         r[EF] = 1;
